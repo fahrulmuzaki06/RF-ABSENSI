@@ -26,7 +26,7 @@ require_once __DIR__ . '/../includes/Header.php';
 
 <header class="topbar">
     <div>
-        <h1>Sesi Absensi <span class="badge">Pegawai view</span></h1>
+        <h1>Sesi Absensi</h1>
         <p>Lakukan pencatatan masuk dan keluar kerja</p>
     </div>
     <div class="chip">
@@ -119,7 +119,6 @@ require_once __DIR__ . '/../includes/Header.php';
         var d = new Date(sekarang);
         var wib = new Date(d.getTime() + d.getTimezoneOffset() * 60000 + 7 * 3600000);
         el.textContent = pad(wib.getHours()) + ':' + pad(wib.getMinutes()) + ':' + pad(wib.getSeconds());
-        // Muat ulang saat tombol berubah status (clock in dibuka / waktu pulang tiba)
         if (reloadAt && sekarang >= reloadAt) { location.reload(); }
     }
     tick();
