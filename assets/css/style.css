@@ -1,0 +1,844 @@
+:root {
+    --red: #e8182c;
+    --ink: #111827;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --bg: #f6f7f9;
+    --card: #fff;
+    --head: #f3f4f6;
+    --side: 250px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--bg);
+    overflow-x: hidden;
+    width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+h1, h2, p {
+    margin: 0
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--side);
+    background: var(--card);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    z-index: 30;
+    transition: transform .2s
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px
+}
+
+.logo {
+    flex: 1;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px 0;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.1
+}
+
+.logo img {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.logo small {
+    display: block;
+    font-weight: 500;
+    font-size: 11px;
+    color: #ffd9dd
+}
+
+.nav-close {
+    border: 0;
+    background: none;
+    font-size: 18px;
+    color: var(--muted);
+    margin-left: 12px;
+    cursor: pointer
+}
+
+.nav {
+    padding: 8px 12px;
+    display: grid;
+    gap: 2px
+}
+
+.nav a {
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--muted)
+}
+
+.nav a:hover {
+    background: var(--head)
+}
+
+.nav a.active {
+    background: var(--card);
+    color: var(--ink);
+    font-weight: 600;
+    box-shadow: 0 0 0 1px var(--line)
+}
+
+.me {
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--line);
+    flex: none
+}
+
+.me b {
+    display: block;
+    font-size: 13px
+}
+
+.me small, .me a {
+    color: var(--muted);
+    font-size: 12px
+}
+
+.overlay {
+    display: none
+}
+
+/* ---------- Layout ---------- */
+.main {
+    margin-left: var(--side);
+    min-height: 100vh;
+    transition: margin .2s
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 12px;
+    padding: 12px 24px;
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 20
+}
+
+.topbar h1 {
+    font-size: 18px;
+    line-height: 1.2
+}
+
+.topbar p {
+    color: var(--muted);
+    font-size: 12px
+}
+
+.title {
+    flex: 1;
+    min-width: 0
+}
+
+.title h1, .title p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    flex: none
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap
+}
+
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F5A327;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #dc2626;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.online {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    white-space: nowrap
+}
+
+.online::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-right: 6px
+}
+
+.content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+    /* Mencegah elemen anak memaksakan kelebaran */
+    box-sizing: border-box;
+}
+
+body.nav-collapsed .sidebar {
+    transform: translateX(-100%)
+}
+
+body.nav-collapsed .main {
+    margin-left: 0
+}
+
+/* ---------- Kartu & statistik ---------- */
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px
+}
+
+.stat {
+    padding: 18px 20px
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 13px
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 6px
+}
+
+.stat-value small {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted)
+}
+
+.panel h2 {
+    font-size: 15px;
+    padding: 16px 20px
+}
+
+.table-wrap {
+    overflow-x: auto
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+.table th {
+    background: var(--head);
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 12px 20px;
+    white-space: nowrap
+}
+
+.table td {
+    padding: 14px 20px;
+    border-top: 1px solid var(--line);
+    white-space: nowrap
+}
+
+.table .strong {
+    font-weight: 600
+}
+
+.table.shift {
+    min-width: 640px
+}
+
+.empty {
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--muted)
+}
+
+.badge {
+    display: inline-block;
+    border: 1px solid var(--line);
+    background: var(--head);
+    border-radius: 6px;
+    padding: 3px 12px;
+    font-size: 12px
+}
+
+.badge.hadir {
+    background: #dcfce7;
+    border-color: #bbf7d0;
+    color: #166534
+}
+
+.badge.terlambat {
+    background: #fef3c7;
+    border-color: #fde68a;
+    color: #92400e
+}
+
+.badge.izin {
+    background: #fff;
+    color: var(--ink)
+}
+
+.badge.belum-absen, .badge.libur {
+    color: var(--muted)
+}
+
+.warn {
+    color: #b91c1c;
+    font-weight: 600
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #fff
+}
+
+.alert-sukses {
+    background: #dcfce7;
+    border-color: #bbf7d0;
+    color: #166534
+}
+
+.alert-error {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #991b1b
+}
+
+/* ---------- Tablet & mobile ---------- */
+@media (max-width:900px) {
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: none
+    }
+
+    .main {
+        margin-left: 0
+    }
+
+    body.nav-open .sidebar {
+        transform: none;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .2)
+    }
+
+    body.nav-open .overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .35);
+        z-index: 25
+    }
+
+    body.nav-collapsed .sidebar {
+        transform: translateX(-100%)
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .nav-close {
+        display: inline
+    }
+}
+
+@media (min-width:901px) {
+    .nav-close {
+        display: none
+    }
+}
+
+@media (max-width:640px) {
+    .topbar {
+        padding: 10px 14px;
+        gap: 8px
+    }
+
+    .online, .btn .txt {
+        display: none
+    }
+
+    .btn {
+        padding: 9px 11px
+    }
+
+    .content {
+        padding: 14px;
+        gap: 14px
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 10px
+    }
+
+    .stat {
+        padding: 14px
+    }
+
+    .stat-value {
+        font-size: 22px
+    }
+
+    /* tabel karyawan menjadi kartu per orang */
+    .table.cards thead {
+        display: none
+    }
+
+    .table.cards, .table.cards tbody, .table.cards tr {
+        display: block
+    }
+
+    .table.cards tr {
+        padding: 12px 16px;
+        border-top: 1px solid var(--line)
+    }
+
+    .table.cards td {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 5px 0;
+        border: 0;
+        white-space: normal;
+        text-align: right
+    }
+
+    .table.cards td::before {
+        content: attr(data-label);
+        color: var(--muted);
+        text-align: left
+    }
+}
+
+/* assets/css/form.css - dipakai halaman form (tambah/edit pegawai, dst.) */
+.form-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 20px;
+    align-items: start;
+    max-width: 1040px
+}
+
+.form {
+    padding: 0;
+    overflow: hidden
+}
+
+/* ---- Seksi: judul di kiri, isian di kanan ---- */
+.fsec {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 8px 32px;
+    padding: 24px 28px;
+    border-top: 1px solid var(--line, #e5e7eb)
+}
+
+.fsec:first-of-type {
+    border-top: 0
+}
+
+.fsec-head h2 {
+    font-size: 15px;
+    padding: 0;
+    margin: 0 0 4px
+}
+
+.fsec-head p {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--muted, #6b7280)
+}
+
+.fsec-body {
+    display: grid;
+    gap: 18px
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px
+}
+
+/* ---- Field ---- */
+.field {
+    display: grid;
+    gap: 6px;
+    min-width: 0
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 600
+}
+
+.field label span {
+    font-weight: 400;
+    color: var(--muted, #6b7280)
+}
+
+.field input, .field select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--ink, #111827);
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.field select {
+    appearance: none;
+    padding-right: 34px;
+    cursor: pointer;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 12px center
+}
+
+.field input::placeholder {
+    color: #9ca3af
+}
+
+.field input:hover, .field select:hover {
+    border-color: #9ca3af
+}
+
+.field input:focus, .field select:focus {
+    outline: 0;
+    border-color: var(--ink, #111827);
+    box-shadow: 0 0 0 3px rgba(232, 24, 44, .16)
+}
+
+.hint {
+    font-size: 12px;
+    color: var(--muted, #6b7280);
+    line-height: 1.5
+}
+
+/* ---- Pilihan durasi kontrak ---- */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center
+}
+
+.chips small {
+    color: var(--muted, #6b7280);
+    font-size: 12px;
+    margin-right: 2px
+}
+
+.chip {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s
+}
+
+.chip:hover {
+    background: var(--head, #f3f4f6);
+    border-color: #9ca3af
+}
+
+/* ---- Kolom RFID: menunjukkan kesiapan membaca kartu ---- */
+.rfid {
+    position: relative
+}
+
+.rfid input {
+    padding-left: 40px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .04em
+}
+
+.rfid-dot {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background: #d1d5db;
+    transition: background .2s, box-shadow .2s
+}
+
+.rfid.ready .rfid-dot {
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, .2)
+}
+
+.rfid.filled .rfid-dot {
+    background: var(--ink, #111827)
+}
+
+.rfid-state {
+    font-size: 12px;
+    color: var(--muted, #6b7280)
+}
+
+.rfid.ready+.rfid-state {
+    color: #166534
+}
+
+/* ---- Tombol aksi ---- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #fafafa;
+    border-top: 1px solid var(--line, #e5e7eb)
+}
+
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-weight: 600;
+    color: var(--ink, #111827)
+}
+
+.btn-ghost:hover {
+    background: var(--head, #f3f4f6)
+}
+
+.form-actions .btn {
+    padding: 9px 20px
+}
+
+/* ---- Panel samping ---- */
+.side {
+    padding: 20px;
+    display: grid;
+    gap: 18px;
+    position: sticky;
+    top: 84px
+}
+
+.kode-box {
+    display: grid;
+    gap: 4px
+}
+
+.kode-box small {
+    color: var(--muted, #6b7280);
+    font-size: 12px
+}
+
+.kode-box b {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: .02em
+}
+
+.kode-box span {
+    font-size: 12px;
+    color: var(--muted, #6b7280)
+}
+
+.side h3 {
+    margin: 0 0 10px;
+    font-size: 13px
+}
+
+.steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    counter-reset: s
+}
+
+.steps li {
+    position: relative;
+    padding-left: 30px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #374151;
+    counter-increment: s
+}
+
+.steps li::before {
+    content: counter(s);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink, #111827);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: grid;
+    place-items: center
+}
+
+.steps b {
+    display: block;
+    color: var(--ink, #111827)
+}
+
+/* ---- Pesan error ---- */
+.form-errors {
+    margin: 20px 28px 0;
+    padding: 12px 16px 12px 32px;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    border-radius: 8px;
+    font-size: 13px
+}
+
+.form-errors li+li {
+    margin-top: 4px
+}
+
+@media (max-width:980px) {
+    .form-layout {
+        grid-template-columns: 1fr
+    }
+
+    .side {
+        position: static;
+        order: -1
+    }
+}
+
+@media (max-width:640px) {
+    .fsec {
+        grid-template-columns: 1fr;
+        padding: 20px 16px;
+        gap: 16px
+    }
+
+    .grid2 {
+        grid-template-columns: 1fr
+    }
+
+    .form-actions {
+        padding: 14px 16px
+    }
+
+    .form-actions>* {
+        flex: 1;
+        justify-content: center;
+        text-align: center
+    }
+
+    .form-errors {
+        margin: 16px 16px 0
+    }
+}
